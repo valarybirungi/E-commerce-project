@@ -1,57 +1,85 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>FARM DROP E-COMMERCE</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'base.html' %}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  </head>
-  <body>
-      <!-- Nav tabs -->
-      <ul class="nav nav-tabs" id="navId">
-        <li class="nav-item">
-            <a href="#tab1Id" class="nav-link active">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#tab2Id">Live Stock</a>
-                <a class="dropdown-item" href="#tab3Id">Plantation</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#tab4Id">Fertilizers</a>
-            </div>
-        </li>
-        <li class="nav-item">
-            <a href="#tab5Id" class="nav-link">Contact</a>
-        </li>
-        <li class="nav-item">
-            <a href="#" class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      
-      <!-- Tab panes -->
-      <div class="tab-content">
-        <div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
-        <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
-        <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
-        <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
-        <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
-      </div>
-      
-      <script>
-        $('#navId a').click(e => {
-            e.preventDefault();
-            $(e.currentTarget).tab('show');
-        });
-      </script>
-      <p>WELCOME TO DJANGO PROJECT</p>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
-</html>
+{% block title %}Farmdrop | Good food, grown close{% endblock %}
+
+{% block content %}
+<div class="page-width">
+	<section class="hero" aria-labelledby="hero-title">
+		<div>
+			<span class="eyebrow">From nearby fields to your table</span>
+			<h1 id="hero-title">Good food, <em>grown close.</em></h1>
+			<p class="hero-copy">Meet the growers behind your groceries. Seasonal fruit and vegetables, harvested at
+				their best and delivered fresh.</p>
+			<div class="hero-actions">
+				<a class="button-primary" href="#produce">Why Farmdrop?</a>
+			</div>
+		</div>
+		<div class="hero-image">
+			<img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1100&q=85"
+				alt="Fresh vegetables arranged at a local produce market">
+			<span class="image-caption">Picked fresh. Delivered with care.</span>
+		</div>
+	</section>
+
+	<section class="promise-strip" aria-label="Our commitments">
+		<div class="promise-item"><span class="promise-mark" aria-hidden="true">01</span>
+			<div><strong>Seasonal by nature</strong><span>Enjoy what is growing now</span></div>
+		</div>
+		<div class="promise-item"><span class="promise-mark" aria-hidden="true">02</span>
+			<div><strong>Know your grower</strong><span>Good food with a local story</span></div>
+		</div>
+		<div class="promise-item"><span class="promise-mark" aria-hidden="true">03</span>
+			<div><strong>Fresh to your door</strong><span>Picked with care, delivered fresh</span></div>
+		</div>
+	</section>
+
+	<section id="produce" aria-labelledby="produce-title">
+		<div class="section-heading">
+			<div><span class="eyebrow">A little taste of the season</span>
+				<h2 id="produce-title">On the table this week</h2>
+			</div>
+			<p>A changing selection of everyday favourites, grown by farms that care about the land.</p>
+		</div>
+		<div class="produce-grid">
+			<article class="produce-card">
+				<img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=800&q=80"
+					alt="Bright red tomatoes, freshly picked">
+				<div class="produce-info">
+					<div>
+						<h3>Vine tomatoes</h3>
+						<p>Sweet, sun-ripened and local</p>
+					</div><span class="produce-price">ugx 15,000 / lb</span>
+				</div>
+			</article>
+			<article class="produce-card">
+				<img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=800&q=80"
+					alt="Crisp apples ready for harvest">
+				<div class="produce-info">
+					<div>
+						<h3>Orchard apples</h3>
+						<p>Crunchy with a gentle sweetness</p>
+					</div><span class="produce-price">ugx 20,000 / bag</span>
+				</div>
+			</article>
+			<article class="produce-card">
+				<img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80"
+					alt="Fresh potatoes from the field">
+				<div class="produce-info">
+					<div>
+						<h3>Field potatoes</h3>
+						<p>Earthy, versatile and just dug</p>
+					</div><span class="produce-price">ugx 30,000 / lb</span>
+				</div>
+			</article>
+		</div>
+	</section>
+
+	<section class="about-band" id="about" aria-labelledby="about-title">
+		<div><span class="eyebrow">A better kind of grocery run</span>
+			<h2 id="about-title">Closer to the people who grow it.</h2>
+		</div>
+		<p>Farmdrop brings local growers and your kitchen a little closer together. We focus on seasonal produce and
+			thoughtful sourcing, so choosing fresh can feel good from the very first bite.</p>
+	</section>
+</div>
+{% endblock %}

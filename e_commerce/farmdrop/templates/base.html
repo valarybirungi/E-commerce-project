@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f6ef">
+    <title>{% block title %}Farmdrop | Good food, grown close{% endblock %}</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+    <!-- FIXED: Working Font Awesome 4.7.0 CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+  <body>
+    {% block header %}
+      <header class="site-header">
+        <div class="header-inner">
+          <a class="brand" href="{% url 'index' %}" aria-label="Farmdrop home">farm<span>drop</span></a>
+          <nav class="main-nav" aria-label="Main navigation">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'produce' %}">Shop</a>
+            <a href="{% url 'index' %}#about">Our promise</a>
+            <a href="{% url 'index' %}"><i class="fa fa-shopping-cart">ugx 0.00</i></a>
+            <a class="nav-cta" href="{% url 'login' %}">Get Started <i class="fa fa-arrow-right"></i></a>
+          </nav>
+        </div>
+      </header>
+    {% endblock %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    {% block footer %}
+      <footer class="site-footer" id="contact">
+        <div class="footer-inner">
+          <div class="footer-top">
+            <div>
+              <a class="footer-brand" href="{% url 'index' %}">farmdrop</a>
+              <p class="footer-note">Fresh from nearby farms, picked with care and delivered to your door.</p>
+            </div>
+            <nav class="footer-links" aria-label="Footer navigation">
+              <a href="{% url 'produce' %}">Shop produce</a>
+              <a href="{% url 'index' %}#about">Our promise</a>
+              <a href="mailto:hello@farmdrop.example">Get in touch</a>
+            </nav>
+          </div>
+          <div class="footer-bottom">
+            <span>© {% now "Y" %} Farmdrop. Grown close, shared fresh.</span>
+            <span>Good food should do good.</span>
+          </div>
+        </div>
+      </footer>
+    {% endblock %}
+  </body>
+</html>

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard | Farmdrop{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+  <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+    <a class="dashboard-brand" href="{% url 'dashboard' %}">farm<span>drop</span><small>ADMIN</small></a>
+
+    <p class="sidebar-label">Workspace</p>
+    <nav class="dashboard-nav">
+      <a class="dashboard-nav-link is-active" href="{% url 'dashboard' %}" aria-current="page">
+        <i class="fa fa-th-large" aria-hidden="true"></i><span>Overview</span>
+      </a>
+      <a class="dashboard-nav-link" href="{% url 'admin:farmdrop_produce_changelist' %}">
+        <i class="fa fa-leaf" aria-hidden="true"></i><span>Produce catalog</span>
+      </a>
+      <a class="dashboard-nav-link" href="{% url 'produce' %}">
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i><span>View storefront</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="sidebar-help">
+        <span class="help-mark"><i class="fa fa-leaf" aria-hidden="true"></i></span>
+        <strong>Growing something good?</strong>
+        <span>Keep your market fresh by updating the catalog.</span>
+        <a href="{% url 'admin:farmdrop_produce_changelist' %}">Manage produce <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+      <a class="sidebar-home-link" href="{% url 'index' %}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back to Farmdrop</a>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <header class="dashboard-topbar">
+      <div class="dashboard-breadcrumb"><span>Farmdrop</span><i class="fa fa-angle-right" aria-hidden="true"></i><strong>Overview</strong></div>
+      <div class="dashboard-account">
+        <span class="account-avatar" aria-hidden="true">{{ request.user.username|first|upper }}</span>
+        <span><strong>{{ request.user.get_short_name|default:request.user.username }}</strong><small>Administrator</small></span>
+        <a class="account-admin-link" href="{% url 'admin:index' %}" aria-label="Open Django administration"><i class="fa fa-cog" aria-hidden="true"></i></a>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <section class="dashboard-welcome" aria-labelledby="dashboard-title">
+        <div>
+          <p class="dashboard-eyebrow">YOUR FARMDROP WORKSPACE</p>
+          <h1 id="dashboard-title">Good morning, {{ request.user.get_short_name|default:request.user.username }} <i class="fa fa-sun-o" aria-hidden="true"></i></h1>
+          <p>Here’s a little snapshot of what’s growing in your store.</p>
+        </div>
+        <span class="dashboard-date"><i class="fa fa-calendar-o" aria-hidden="true"></i> {% now "l, F j, Y" %}</span>
+      </section>
+
+      <section class="dashboard-stats" aria-label="Store overview">
+        <article class="dashboard-stat">
+          <div class="stat-icon stat-icon-green"><i class="fa fa-leaf" aria-hidden="true"></i></div>
+          <div class="stat-copy"><span>Produce listings</span><strong>{{ produce_count }}</strong><small>Items in your catalog</small></div>
+          <a href="{% url 'admin:farmdrop_produce_changelist' %}" aria-label="Manage produce listings"><i class="fa fa-external-link" aria-hidden="true"></i></a>
+        </article>
+        <article class="dashboard-stat">
+          <div class="stat-icon stat-icon-peach"><i class="fa fa-users" aria-hidden="true"></i></div>
+          <div class="stat-copy"><span>Customer accounts</span><strong>{{ customer_count }}</strong><small>Registered with Farmdrop</small></div>
+          <span class="stat-decoration" aria-hidden="true"><i class="fa fa-user-o"></i></span>
+        </article>
+        <article class="dashboard-highlight">
+          <div class="highlight-copy"><span class="highlight-tag">A fresh start</span><h2>Good food starts close to home.</h2><p>Keep your produce catalog up to date for your community.</p>
+            <a href="{% url 'admin:farmdrop_produce_changelist' %}">Visit your catalog <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <span class="highlight-illustration" aria-hidden="true"><i class="fa fa-leaf"></i></span>
+        </article>
+      </section>
+
+      <section class="catalog-panel" aria-labelledby="catalog-title">
+        <div class="panel-heading">
+          <div><p class="dashboard-eyebrow">THE MARKET SHELF</p><h2 id="catalog-title">Your produce catalog</h2><p class="panel-subtitle">A quick look at the latest items in your store.</p></div>
+          <a class="panel-action" href="{% url 'admin:farmdrop_produce_changelist' %}">Manage catalog <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        {% if produce_items %}
+        <div class="catalog-list">
+          {% for item in produce_items %}
+          <article class="catalog-row">
+            <span class="catalog-item-icon" aria-hidden="true"><i class="fa fa-leaf"></i></span>
+            <div class="catalog-item-copy"><strong>{{ item.name }}</strong><span>{{ item.description|truncatechars:90|default:"Fresh from the Farmdrop catalog" }}</span></div>
+            <span class="catalog-status"><i class="fa fa-circle" aria-hidden="true"></i> In catalog</span>
+            <a class="catalog-edit" href="{% url 'admin:farmdrop_produce_change' item.pk %}" aria-label="Edit {{ item.name }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="catalog-empty">
+          <span class="empty-icon"><i class="fa fa-leaf" aria-hidden="true"></i></span>
+          <strong>Your market shelf is ready</strong>
+          <p>Add your first produce item to get your catalog growing.</p>
+          <a class="dashboard-button" href="{% url 'admin:farmdrop_produce_add' %}">Add produce <i class="fa fa-plus" aria-hidden="true"></i></a>
+        </div>
+        {% endif %}
+      </section>
+
+      <div class="dashboard-footer"><span>Made for good food and good neighbors.</span><a href="{% url 'produce' %}">Visit the storefront <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

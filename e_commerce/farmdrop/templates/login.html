@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Log in | Farmdrop{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="login-page-shell">
+    <section class="login-panel" aria-labelledby="login-heading">
+        <div class="auth-card">
+            <p class="eyebrow">Welcome back</p>
+            <h1 id="login-heading">Log in to Farmdrop</h1>
+            <p class="login-intro">Sign in to continue enjoying fresh food from farms close to home.</p>
+
+            <form action="{% url 'login' %}" method="POST" class="auth-form">
+                {% csrf_token %}
+
+                {% if error %}
+                <div class="login-error" role="alert">{{ error }}</div>
+                {% endif %}
+
+                <div class="login-field">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username"
+                        autocomplete="username" required>
+                </div>
+
+                <div class="login-field">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password"
+                        autocomplete="current-password" required>
+                </div>
+
+                <button type="submit" class="login-submit">Log in</button>
+                <p class="auth-link">New customer? Account registration is coming soon.</p>
+            </form>
+        </div>
+    </section>
+</div>
+{% endblock %}
