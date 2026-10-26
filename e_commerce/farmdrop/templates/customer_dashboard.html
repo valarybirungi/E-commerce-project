@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Welcome, {{ customer.firstname }} | Farmdrop{% endblock %}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+  <aside class="dashboard-sidebar" aria-label="Dashboard navigation">
+    <a class="dashboard-brand" href="{% url 'customer_dashboard' %}">farm<span>drop</span></a>
+
+    <p class="sidebar-label">My account</p>
+    <nav class="dashboard-nav">
+      <a class="dashboard-nav-link is-active" href="{% url 'customer_dashboard' %}" aria-current="page">
+        <i class="fa fa-th-large" aria-hidden="true"></i><span>Overview</span>
+      </a>
+      <a class="dashboard-nav-link" href="{% url 'produce' %}">
+        <i class="fa fa-shopping-basket" aria-hidden="true"></i><span>Browse produce</span>
+      </a>
+      <a class="dashboard-nav-link" href="{% url 'index' %}">
+        <i class="fa fa-home" aria-hidden="true"></i><span>Home</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button class="sidebar-home-link" type="submit" style="background:none;border:0;cursor:pointer;padding:0;font:inherit;color:inherit">
+          <i class="fa fa-sign-out" aria-hidden="true"></i> Log out
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <div class="dashboard-main">
+    <header class="dashboard-topbar">
+      <div class="dashboard-breadcrumb"><span>Farmdrop</span><i class="fa fa-angle-right" aria-hidden="true"></i><strong>My account</strong></div>
+      <div class="dashboard-account">
+        <span class="account-avatar" aria-hidden="true">{{ customer.firstname|first|upper }}</span>
+        <span><strong>{{ customer.firstname }} {{ customer.lastname }}</strong><small>Customer</small></span>
+      </div>
+    </header>
+
+    <div class="dashboard-content">
+      <section class="dashboard-welcome" aria-labelledby="dashboard-title">
+        <div>
+          <p class="dashboard-eyebrow">WELCOME TO FARMDROP</p>
+          <h1 id="dashboard-title">Welcome, {{ customer.firstname }}! <i class="fa fa-leaf" aria-hidden="true"></i></h1>
+          <p>Good to see you. Fresh, local produce is waiting for you.</p>
+        </div>
+        <span class="dashboard-date"><i class="fa fa-calendar-o" aria-hidden="true"></i> {% now "l, F j, Y" %}</span>
+      </section>
+
+      <section class="dashboard-stats" aria-label="Account overview">
+        <article class="dashboard-stat">
+          <div class="stat-icon stat-icon-green"><i class="fa fa-user" aria-hidden="true"></i></div>
+          <div class="stat-copy"><span>Your account</span><strong>{{ customer.username }}</strong><small>{{ customer.email }}</small></div>
+        </article>
+        <article class="dashboard-stat">
+          <div class="stat-icon stat-icon-peach"><i class="fa fa-shopping-basket" aria-hidden="true"></i></div>
+          {% if latest_order %}
+          <div class="stat-copy"><span>Latest amount spent</span><strong>UGX {{ latest_order.amount|floatformat:"0g" }}</strong><small>{{ latest_order.items }} &middot; {{ latest_order.created_at|date:"M j, Y" }}</small></div>
+          {% else %}
+          <div class="stat-copy"><span>Latest amount spent</span><strong>UGX 0</strong><small>No purchases yet</small></div>
+          {% endif %}
+        </article>
+        <article class="dashboard-highlight">
+          <div class="highlight-copy"><span class="highlight-tag">Fresh this week</span><h2>Good food starts close to home.</h2><p>{{ produce_count }} item{{ produce_count|pluralize }} available from local growers.</p>
+            <a href="{% url 'produce' %}">Browse produce <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+          </div>
+          <span class="highlight-illustration" aria-hidden="true"><i class="fa fa-leaf"></i></span>
+        </article>
+      </section>
+
+      <section class="catalog-panel" aria-labelledby="catalog-title">
+        <div class="panel-heading">
+          <div><p class="dashboard-eyebrow">THE MARKET SHELF</p><h2 id="catalog-title">Latest from the market</h2><p class="panel-subtitle">New arrivals from our growers.</p></div>
+          <a class="panel-action" href="{% url 'produce' %}">See all <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+
+        {% if produce_items %}
+        <div class="catalog-list">
+          {% for item in produce_items %}
+          <article class="catalog-row">
+            <span class="catalog-item-icon" aria-hidden="true"><i class="fa fa-leaf"></i></span>
+            <div class="catalog-item-copy"><strong>{{ item.name }}</strong><span>{{ item.description|truncatechars:90|default:"Fresh from the Farmdrop market" }}</span></div>
+            <span class="catalog-status"><i class="fa fa-circle" aria-hidden="true"></i> Available</span>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <div class="catalog-empty">
+          <span class="empty-icon"><i class="fa fa-leaf" aria-hidden="true"></i></span>
+          <strong>Fresh produce is on its way</strong>
+          <p>Check back soon for seasonal arrivals.</p>
+          <a class="dashboard-button" href="{% url 'produce' %}">Browse produce <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        {% endif %}
+      </section>
+
+      <div class="dashboard-footer"><span>Made for good food and good neighbors.</span><a href="{% url 'index' %}">Back to Farmdrop <i class="fa fa-external-link" aria-hidden="true"></i></a></div>
+    </div>
+  </div>
+</div>
+{% endblock %}

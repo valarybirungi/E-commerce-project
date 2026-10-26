@@ -25,7 +25,14 @@
             <a href="{% url 'produce' %}">Shop</a>
             <a href="{% url 'index' %}#about">Our promise</a>
             <a href="{% url 'index' %}"><i class="fa fa-shopping-cart">ugx 0.00</i></a>
-            <a class="nav-cta" href="{% url 'login' %}">Get Started <i class="fa fa-arrow-right"></i></a>
+            {% if request.session.customer_id %}
+              <form class="nav-logout-form" action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button class="nav-cta nav-logout" type="submit">Log out</button>
+              </form>
+            {% else %}
+              <a class="nav-cta" href="{% url 'login' %}">Get Started <i class="fa fa-arrow-right"></i></a>
+            {% endif %}
           </nav>
         </div>
       </header>

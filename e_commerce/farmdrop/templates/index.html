@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Farmdrop | Good food, grown close{% endblock %}
 
@@ -41,36 +42,40 @@
 			<p>A changing selection of everyday favourites, grown by farms that care about the land.</p>
 		</div>
 		<div class="produce-grid">
-			<article class="produce-card">
-				<img src="https://images.unsplash.com/photo-1566385101042-1a0aa0c1268c?auto=format&fit=crop&w=800&q=80"
-					alt="Bright red tomatoes, freshly picked">
-				<div class="produce-info">
-					<div>
-						<h3>Vine tomatoes</h3>
-						<p>Sweet, sun-ripened and local</p>
-					</div><span class="produce-price">ugx 15,000 / lb</span>
+			<div class="card">
+				<img src="{% static 'images/cassava.jpg' %}" alt="Avatar">
+				<div class="container">
+					<h4><b>Cassava</b></h4>
+					<p>Freshly harvested cassava.</p>
 				</div>
-			</article>
-			<article class="produce-card">
-				<img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=800&q=80"
-					alt="Crisp apples ready for harvest">
-				<div class="produce-info">
-					<div>
-						<h3>Orchard apples</h3>
-						<p>Crunchy with a gentle sweetness</p>
-					</div><span class="produce-price">ugx 20,000 / bag</span>
+			</div>
+			<div class="card">
+				<img src="{% static 'images/irish.jpg' %}" alt="Avatar">
+				<div class="container">
+					<h4><b>Irish Potato</b></h4>
+					<p>Freshly harvested Irish potatoes.</p>
 				</div>
-			</article>
-			<article class="produce-card">
-				<img src="https://images.unsplash.com/photo-1518977676601-b53f82aba655?auto=format&fit=crop&w=800&q=80"
-					alt="Fresh potatoes from the field">
-				<div class="produce-info">
-					<div>
-						<h3>Field potatoes</h3>
-						<p>Earthy, versatile and just dug</p>
-					</div><span class="produce-price">ugx 30,000 / lb</span>
+			</div>
+			<div class="card">
+				<img src="{% static 'images/tomatoes.jpg' %}" alt="Avatar">
+				<div class="container">
+					<h4><b>Tomato</b></h4>
+					<p>Fresh crunchy tomatoes.</p>
 				</div>
-			</article>
+			</div>
+			<div class="card">
+				<img src="{% static 'images/carrot.jpg' %}" alt="Avatar">
+				<div class="container">
+					<h4><b>Carrot</b></h4>
+				</div>
+			</div>
+			<div class="card">
+				<img src="{% static 'images/eggs.jpg' %}" alt="Avatar">
+				<div class="container">
+					<h4><b>Eggs</b></h4>
+					<p>Fresh farm eggs.</p>
+				</div>
+			</div>
 		</div>
 	</section>
 

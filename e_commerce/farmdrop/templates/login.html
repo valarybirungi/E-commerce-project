@@ -8,8 +8,22 @@
 
 {% block content %}
 <div class="login-page-shell">
+    <aside class="auth-showcase" aria-hidden="true">
+        <a class="auth-brand" href="{% url 'index' %}" tabindex="-1">farm<span>drop</span></a>
+        <div class="auth-showcase-copy">
+            <h2>Good food, <em>grown close.</em></h2>
+            <p>Meet the growers behind your groceries. Seasonal produce, harvested at its best and delivered fresh.</p>
+            <ul class="auth-perks">
+                <li><i class="fa fa-leaf"></i> Seasonal fruit and vegetables</li>
+                <li><i class="fa fa-map-marker"></i> Sourced from nearby farms</li>
+                <li><i class="fa fa-truck"></i> Fresh to your door</li>
+            </ul>
+        </div>
+    </aside>
+
     <section class="login-panel" aria-labelledby="login-heading">
         <div class="auth-card">
+            <a class="auth-back" href="{% url 'index' %}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back to home</a>
             <p class="eyebrow">Welcome back</p>
             <h1 id="login-heading">Log in to Farmdrop</h1>
             <p class="login-intro">Sign in to continue enjoying fresh food from farms close to home.</p>
@@ -21,22 +35,49 @@
                 <div class="login-error" role="alert">{{ error }}</div>
                 {% endif %}
 
+                {% if success %}
+                <div class="login-success" role="status">{{ success }}</div>
+                {% endif %}
+
                 <div class="login-field">
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" placeholder="Enter your username"
-                        autocomplete="username" required>
+                    <label for="username">Username or email</label>
+                    <div class="field-wrap">
+                        <input type="text" name="username" id="username" placeholder="Enter your username or email"
+                            autocomplete="username" value="{{ username }}" required>
+                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                    </div>
                 </div>
 
                 <div class="login-field">
                     <label for="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder="Enter your password"
-                        autocomplete="current-password" required>
+                    <div class="field-wrap">
+                        <input type="password" name="password" id="password" placeholder="Enter your password"
+                            autocomplete="current-password" required>
+                        <i class="fa fa-lock" aria-hidden="true"></i>
+                        <button type="button" class="toggle-password" aria-label="Show password" data-target="password">
+                            <i class="fa fa-eye" aria-hidden="true" style="position:static;transform:none;color:inherit"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <button type="submit" class="login-submit">Log in</button>
-                <p class="auth-link">New customer? Account registration is coming soon.</p>
+
+                <div class="auth-divider">New to Farmdrop?</div>
+                <a class="auth-secondary" href="{% url 'register' %}">Create an account</a>
             </form>
         </div>
     </section>
 </div>
+
+<script>
+document.querySelectorAll('.toggle-password').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+        var input = document.getElementById(btn.dataset.target);
+        var show = input.type === 'password';
+        input.type = show ? 'text' : 'password';
+        btn.setAttribute('aria-label', show ? 'Hide password' : 'Show password');
+        btn.firstElementChild.className = show ? 'fa fa-eye-slash' : 'fa fa-eye';
+    });
+});
+</script>
 {% endblock %}
